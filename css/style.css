@@ -1,0 +1,169 @@
+@font-face {
+  font-family: 'Game Cube';
+  src: URL('/fonts/GameCube.ttf') format('truetype');
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  color: white;
+}
+
+nav {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 4rem;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #09122c;
+  /*background: radial-gradient(ellipse at right bottom, #344955 0%, #09122c 100%);*/
+  font-family: "Game Cube";
+}
+
+nav h1 {
+  letter-spacing: .2em;
+  font-weight: 800;
+  text-shadow: 2px 2px #999;
+}
+
+.plane {
+  position: absolute;
+  transform: rotate(90deg);
+  left: 0px;
+  top: 0px;
+}
+
+.svg-map {
+  width: 600px;
+  height: 500px;
+}
+
+.map-container {
+  width: 600px;
+  height: 500px;
+  position: relative;
+}
+
+.planet-1 {
+  position: absolute;
+  top: 00px;
+  right: -20px;
+}
+
+.planet-2 {
+  position: absolute;
+  top: 190px;
+  left: 10px;
+}
+
+.planet-3 {
+  position: absolute;
+  right: -10px;
+  bottom: 80px;
+}
+
+.planet {
+  display: flex;
+  gap: .5rem;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.planet img {
+  animation: rotate var(--rotation-duration) linear infinite;
+}
+
+.planet h2 {
+  font-size: .5em;
+}
+
+.page {
+  position: fixed;
+  z-index: 1000;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  transition-duration: 800ms;
+  transform: translateY(100vh);
+  background: #09122c;
+  color: white;
+}
+
+#page-farhannivta svg * {
+  stroke-dashoffset: var(--line-length);
+  stroke-dasharray: var(--line-length);
+  transition: stroke-dashoffset 2s ease-in-out;
+}
+
+#page-farhannivta svg line {
+  transition-delay: 1.5s;
+}
+
+#page-farhannivta.active svg * {
+  stroke-dashoffset: 0;
+}
+
+
+#namaku circle {
+  fill: transparent;
+  stroke-dasharray: 100;
+  animation: textAnimation 2s ease-in-out 1 forwards;
+}
+
+#namaku.active line {
+  stroke-dasharray: 100;
+  animation-delay: 2s;
+  animation: textAnimation 2s ease-in-out 1 forwards;
+}
+
+@keyframes textAnimation {
+  0% {
+    stroke-dashoffset: 100;
+  }
+
+  80% {
+    fill: transparent;
+  }
+
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+.container {
+  margin: auto;
+  max-width: min(800px, 90%);
+}
+
+.page.active {
+  transform: translateY(0);
+}
+
+#page-farhannivta .container {
+  overflow-x: hidden;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
