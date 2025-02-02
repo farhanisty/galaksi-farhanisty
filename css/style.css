@@ -31,6 +31,15 @@ nav {
   font-family: "Game Cube";
 }
 
+.title {
+  font-family: "Game Cube";
+  text-transform: uppercase;
+}
+
+.container {
+  width: min(900px, 90%);
+}
+
 nav h1 {
   letter-spacing: .2em;
   font-weight: 800;
@@ -146,7 +155,7 @@ nav h1 {
 }
 
 .container {
-  margin: auto;
+  margin: 0 auto;
   max-width: min(800px, 90%);
 }
 
@@ -158,6 +167,8 @@ nav h1 {
   overflow-x: hidden;
 }
 
+#page-challenge {}
+
 @keyframes rotate {
   from {
     transform: rotate(0deg);
@@ -166,4 +177,69 @@ nav h1 {
   to {
     transform: rotate(360deg);
   }
+}
+
+.separator-t {
+  border-top: 1px solid white;
+  padding-top: 4px;
+}
+
+/*typing test*/
+
+.typing-test-container {
+  max-width: min(900px, 90%);
+}
+
+.text {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.word {
+  display: flex;
+  gap: 4px;
+  font-size: 1.3rem;
+  font-family: 'Inter', sans-serif;
+}
+
+letter {
+  position: relative;
+  user-select: none;
+  color: rgba(255, 255, 255, 0.5);
+  font-weight: 400;
+  user-select: none;
+}
+
+letter.correct {
+  color: #fff;
+}
+
+letter.wrong {
+  color: red;
+}
+
+letter.wrong.extra {
+  color: rgba(255, 0, 0, .5);
+}
+
+letter.active::before {
+  content: '|';
+  color: white;
+  position: absolute;
+  left: -6px;
+}
+
+#wordInput {
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  opacity: 0;
+}
+
+#wordInput:focus {
+  outline: none;
 }

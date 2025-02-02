@@ -23,8 +23,8 @@
           d="M 550 110 Q 400 260 123 260" fill="none" />
 
         <!-- Third Path -->
-        <path stroke="white" stroke-width="2" stroke-dasharray="12, 10" d="M 70 330 Q 120 420 250 370 Q 360 300 500 350"
-          fill="none" />
+        <path stroke="white" id="planet-path-3" stroke-width="2" stroke-dasharray="12, 10"
+          d="M 70 330 Q 120 420 250 370 Q 360 300 500 350" fill="none" />
       </svg>
 
       <img src="images/plane.png" id="plane" width="50" class="plane" alt="plane" />
@@ -96,9 +96,21 @@
   <div id="page-project" class="page">
     <h1>hello world</h1>
   </div>
-  <div id="page-challenge" class="page">
-    <h1>Challenge</h1>
-  </div>
+
+  <section id="page-challenge" class="page">
+    <div style="position: relative; overflow: hidden;">
+      <div style="display: flex; flex-direction: column;justify-content: center; align-items: center;min-height: 100vh">
+        <h1 class="title" style="">Challenge</h1>
+        <time id="timer" style="color: #E17564; font-size: 2rem;">30</time>
+        <div class="container">
+          <input id="wordInput" type="text">
+          <div class="text" id="textList"></div>
+        </div>
+        <img src="images/astronaut-cropped.png"
+          style="position: absolute; left: -20px; bottom: -80px; transform: rotate(15deg)" height="300" alt="">
+      </div>
+    </div>
+  </section>
 
   <script src="/js/script.js"></script>
 </body>

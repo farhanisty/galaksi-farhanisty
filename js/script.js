@@ -1,6 +1,7 @@
 class SectionRegister {
   element;
   path;
+  onRender = null;
 
   constructor(element, path) {
     this.element = element;
@@ -22,6 +23,9 @@ class LayoutManager {
 
   render() {
     document.body.style.height = `${((this.sections.length * 2) + 1) * window.innerHeight - (window.innerHeight * 30 / 100)}px`;
+    this.planeElement.style.offsetPath = `path('${this.sections[0].path.getAttribute('d')}')`;
+
+    const sectionRenderStatus = this.sections.map(() => false);
 
     window.addEventListener("scroll", () => {
       let counter = 1;
@@ -33,6 +37,15 @@ class LayoutManager {
         }
 
         if(window.innerHeight * counter < window.scrollY && window.innerHeight * (counter + 1) > window.scrollY) {
+          if(sectionRenderStatus[counter - 1] === false) {
+            if(section.onRender) {
+              section.onRender();
+            }
+
+            console.log("hello world");
+
+            sectionRenderStatus[counter - 1] = true;
+          }
           section.element.classList.add("active");
         } else {
           section.element.classList.remove("active");
@@ -49,8 +62,198 @@ const pageFarhannivta = document.querySelector("#page-farhannivta");
 
 const layoutManager = new LayoutManager(document.getElementById("plane"));
 
+const challengeSection = new SectionRegister(document.querySelector("#page-challenge"), document.getElementById("planet-path-3"));
+
+challengeSection.onRender = () => {
+  console.log("hello world");
+}
+
 layoutManager.registerSection(new SectionRegister(document.querySelector("#page-farhannivta"), document.getElementById("planet-path-1")));
 layoutManager.registerSection(new SectionRegister(document.querySelector("#page-project"), document.getElementById("planet-path-2")));
-layoutManager.registerSection(new SectionRegister(document.querySelector("#page-challenge"), document.getElementById("planet-path-2")));
+layoutManager.registerSection(challengeSection);
 
 layoutManager.render();
+
+const inputText = document.getElementById("wordInput");
+
+class Word {
+  element;
+  index = 0;
+  length;
+  isDone = false;
+  isCorrect = false;
+  resultString = "";
+  correctString = "";
+
+  constructor(word) {
+    this.element = document.createElement("div");
+    this.element.classList.add("word");
+
+    let correctString = "";
+
+    for (const char of word) {
+      correctString += char;
+
+      this.element.appendChild(this.createLetterElement(char));
+    }
+
+    this.element.appendChild(this.createLetterElement(" "));
+
+    this.length = correctString.length;
+    this.correctString = correctString;
+  }
+
+  createLetterElement(character) {
+    const letterElement = document.createElement("letter");
+    letterElement.innerText = character;
+
+    return letterElement;
+  }
+
+  addInput(character) {
+    if (this.index >= this.length) {
+      if(this.index > this.length + 8) {
+        return;
+      }
+
+      const wrongLetterElement = this.createLetterElement(character);
+      wrongLetterElement.classList.add("wrong");
+      wrongLetterElement.classList.add("wrong", "extra");
+
+      const childCount = this.element.children.length;
+
+      if (childCount > 1) {
+        this.element.insertBefore(wrongLetterElement, this.element.children[childCount - 1]);
+      } else {
+        this.element.appendChild(wrongLetterElement);
+      }
+    } else {
+      const childrens = this.element.children;
+      if (character === childrens[this.index].innerText) {
+        childrens[this.index].classList.add("correct");
+      } else {
+        childrens[this.index].classList.add("wrong");
+      }
+
+      childrens[this.index].classList.remove("active");
+      if (this.element.children.length > this.index + 1) {
+        childrens[this.index + 1].classList.add("active");
+      }
+    }
+
+    this.index++;
+  }
+
+  backspaceInput() {
+    if (this.index === 0) {
+      return;
+    }
+
+    if (this.index > this.length) {
+      this.decrementIndex();
+      this.getCurrentChar().remove();
+    } else {
+      this.getCurrentChar().classList.remove(...this.getCurrentChar().classList);
+      this.decrementIndex();
+      this.getCurrentChar().classList.remove(...this.getCurrentChar().classList);
+      this.getCurrentChar().classList.add("active");
+    }
+
+  }
+
+  init() {
+    this.getCurrentChar().classList.add("active");
+  }
+
+  terminateWord() {
+    if (this.index >= this.length) {
+      this.element.children[this.element.children.length - 1].classList.remove("active");
+    } else {
+      this.getCurrentChar().classList.remove("active");
+    }
+  }
+
+  incrementIndex() {
+    this.index++;
+  }
+
+  decrementIndex() {
+    if (this.index) {
+      this.index--;
+    }
+  }
+
+  getCurrentChar() {
+    return this.element.children[this.index];
+  }
+}
+
+class Text {
+  words = [];
+  pointer = 0;
+  initial = false;
+  timerElement;
+
+  constructor(rootElement, timerElement, words) {
+    this.timerElement = timerElement;
+
+    for (const children of words) {
+      const word = new Word(children);
+
+      rootElement.appendChild(word.element);
+
+      this.words.push(word);
+    }
+  }
+
+  addInput(character) {
+    if(this.initial === false) {
+      this.initial = true;
+      const timer = setInterval(() => {
+        this.timerElement.innerText = this.timerElement.innerText - 1;
+      }, 1000);
+
+      setTimeout(() => {
+        clearInterval(timer);
+      }, 30000)
+    }
+
+    if (character === ' ') {
+      this.getCurrentWord().terminateWord();
+      this.incrementPointer();
+      this.getCurrentWord().init();
+    } else if (character === 'Backspace') {
+      this.getCurrentWord().backspaceInput();
+    } else if (character.length != 1) {
+
+    } else {
+      this.words[this.pointer].addInput(character);
+    }
+  }
+
+  getCurrentWord() {
+    return this.words[this.pointer];
+  }
+
+  incrementPointer() {
+    if(this.pointer + 1 < this.words.length) {
+      this.pointer++;
+    }
+  }
+}
+
+const words = [
+  "Langit", "Pintu", "Senyap", "Rumah", "Pelangi", "Gelombang", "Api", "Jalan", "Angin", "Harapan",
+  "Bunga", "Pasir", "Laut", "Bintang", "Buku", "Pena", "Hujan", "Layar", "Cermin", "Gunung",
+  "Cahaya", "Senyum", "Bayangan", "Pohon", "Kabut", "Gitar", "Angka", "Malam", "Nada", "Embun",
+  "Sungai", "Pulau", "Jendela", "Lembah", "Waktu", "Dahan", "Ombak", "Kertas", "Warna", "Suara",
+  "Awan", "Tinta", "Kota", "Perjalanan", "Kereta", "Sinar", "Langkah", "Batu", "Pelukan", "Keheningan"
+];
+
+const text = new Text(document.querySelector("#textList"), document.querySelector("#timer"), words);
+
+text.words[0].init();
+
+inputText.addEventListener("keydown", (e) => {
+  text.addInput(e.key);
+})
