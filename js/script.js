@@ -193,6 +193,7 @@ class Text {
   pointer = 0;
   initial = false;
   timerElement;
+  isDone = false;
 
   constructor(rootElement, timerElement, words) {
     this.timerElement = timerElement;
@@ -207,6 +208,10 @@ class Text {
   }
 
   addInput(character) {
+    if(this.isDone) {
+      return;
+    }
+
     if(this.initial === false) {
       this.initial = true;
       const timer = setInterval(() => {
@@ -215,6 +220,7 @@ class Text {
 
       setTimeout(() => {
         clearInterval(timer);
+        this.isDone = true;
       }, 30000)
     }
 
