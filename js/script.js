@@ -1,12 +1,14 @@
 class SectionRegister {
   element;
   path;
+  mobilePath;
   onRender = null;
   isRender = false;
 
-  constructor(element, path) {
+  constructor(element, path, mobilePath) {
     this.element = element;
     this.path = path;
+    this.mobilePath = mobilePath;
   }
 }
 
@@ -24,14 +26,24 @@ class LayoutManager {
 
   render() {
     document.body.style.height = `${((this.sections.length * 2) + 1) * window.innerHeight - (window.innerHeight * 30 / 100)}px`;
-    this.planeElement.style.offsetPath = `path('${this.sections[0].path.getAttribute('d')}')`;
+
+    if(window.innerWidth <= 600) {
+      this.planeElement.style.offsetPath = `path('${this.sections[0].mobilePath.getAttribute('d')}')`;
+    } else {
+      this.planeElement.style.offsetPath = `path('${this.sections[0].path.getAttribute('d')}')`;
+    }
 
     window.addEventListener("scroll", () => {
       let counter = 1;
 
       for(const section of this.sections) {
         if(window.scrollY > window.innerHeight * (counter - 1) && window.scrollY < window.innerHeight * counter) {
-          this.planeElement.style.offsetPath = `path('${section.path.getAttribute('d')}')`;
+
+          if(window.innerWidth <= 600) {
+            this.planeElement.style.offsetPath = `path('${section.mobilePath.getAttribute('d')}')`;
+          } else {
+            this.planeElement.style.offsetPath = `path('${section.path.getAttribute('d')}')`;
+          }
           this.planeElement.style.offsetDistance = `${(window.scrollY % window.innerHeight) / (window.innerHeight) * 100}%`;
         }
 
@@ -67,24 +79,28 @@ const pageFarhannivta = document.querySelector("#page-farhannivta");
 
 const layoutManager = new LayoutManager(document.getElementById("plane"));
 
-const challengeSection = new SectionRegister(document.querySelector("#page-challenge"), document.getElementById("planet-path-3"));
+const challengeSection = new SectionRegister(document.querySelector("#page-challenge"), document.getElementById("planet-path-3"), document.getElementById("mobile-planet-path-3"));
 
 challengeSection.onRender = () => {
   astronoutGuiderMessage.innerText = "Rata-rata kecepatan mengetikku dalam kosakata Bahasa Indonesia adalah 95 WPM, apakah kamu bisa mengalahkanku?";
   astronoutGuiderContainer.classList.add("active");
 }
 
-const farhannivtaSection = new SectionRegister(document.querySelector("#page-farhannivta"), document.getElementById("planet-path-1"));
+const farhannivtaSection = new SectionRegister(document.querySelector("#page-farhannivta"), document.getElementById("planet-path-1"), document.getElementById("mobile-planet-path-1"));
 
 farhannivtaSection.onRender = () => {
   astronoutGuiderContainer.classList.remove("active");
 }
 
 layoutManager.registerSection(farhannivtaSection);
-layoutManager.registerSection(new SectionRegister(document.querySelector("#page-project"), document.getElementById("planet-path-2")));
+layoutManager.registerSection(new SectionRegister(document.querySelector("#page-project"), document.getElementById("planet-path-2"), document.getElementById("mobile-planet-path-2")));
 layoutManager.registerSection(challengeSection);
 
 layoutManager.render();
+
+window.addEventListener("resize", () => {
+  layoutManager.render();
+})
 
 const inputText = document.getElementById("wordInput");
 
