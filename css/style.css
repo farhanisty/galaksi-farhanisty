@@ -68,7 +68,7 @@ nav h1 {
 }
 
 .map-container {
-  width: min(600px, 90%);
+  width: 600px;
   height: 500px;
   position: relative;
 }
@@ -324,7 +324,9 @@ letter.active::before {
     padding-bottom: 20vh;
   }
 
-  .map-container {}
+  .map-container {
+    width: 350px;
+  }
 
   #page-project ul li {
     width: 100%;
