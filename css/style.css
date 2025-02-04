@@ -59,8 +59,16 @@ nav h1 {
   height: 500px;
 }
 
+.svg-map.mobile {
+  display: none;
+}
+
+.svg-map.desktop {
+  display: block;
+}
+
 .map-container {
-  width: 600px;
+  width: min(600px, 90%);
   height: 500px;
   position: relative;
 }
@@ -304,6 +312,20 @@ letter.active::before {
 }
 
 @media only screen and (max-width: 600px) {
+  .svg-map.desktop {
+    display: none;
+  }
+
+  .svg-map.mobile {
+    display: block;
+  }
+
+  nav {
+    padding-bottom: 20vh;
+  }
+
+  .map-container {}
+
   #page-project ul li {
     width: 100%;
     border: 1px solid white;
