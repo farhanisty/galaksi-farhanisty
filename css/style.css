@@ -312,6 +312,11 @@ letter.active::before {
 }
 
 @media only screen and (max-width: 600px) {
+  nav h1 {
+    text-align: center;
+    font-size: 1.2rem;
+  }
+
   .svg-map.desktop {
     display: none;
   }
@@ -334,5 +339,20 @@ letter.active::before {
     padding: 4px;
     border-radius: 6px;
     margin-bottom: 12px;
+  }
+
+  #astronout-guider-container {
+    position: relative;
+    width: 100vw;
+    height: 35vh;
+  }
+
+  #astronout-guider-container img {
+    height: 230px;
+  }
+
+  #astronout-guider-container p {
+    position: absolute;
+    left: 100px;
   }
 }
