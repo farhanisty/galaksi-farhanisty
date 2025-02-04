@@ -11,6 +11,7 @@
 
 body {
   color: white;
+  font-family: "Inter", sans-serif;
 }
 
 nav {
@@ -119,8 +120,16 @@ nav h1 {
   transition: stroke-dashoffset 2s ease-in-out;
 }
 
+#page-farhannivta svg .line-2 {
+  transition-delay: 2s;
+}
+
 #page-farhannivta svg line {
   transition-delay: 1.5s;
+}
+
+#page-farhannivta svg rect {
+  transition-delay: 3s;
 }
 
 #page-farhannivta.active svg * {
@@ -128,17 +137,21 @@ nav h1 {
 }
 
 
-#namaku circle {
-  fill: transparent;
-  stroke-dasharray: 100;
-  animation: textAnimation 2s ease-in-out 1 forwards;
-}
-
-#namaku.active line {
-  stroke-dasharray: 100;
-  animation-delay: 2s;
-  animation: textAnimation 2s ease-in-out 1 forwards;
-}
+/*#namaku circle {*/
+/*  stroke-dasharray: 100;*/
+/*  animation: textAnimation 2s ease-in-out 1 forwards;*/
+/*}*/
+/**/
+/*#namaku.active line {*/
+/*  stroke-dasharray: 100;*/
+/*  animation-delay: 2s;*/
+/*  animation: textAnimation 2s ease-in-out 1 forwards;*/
+/*}*/
+/**/
+/*#namaku.active rect {*/
+/*  animation-delay: 4s;*/
+/*  animation: textAnimation 2s ease-in-out 1 forwards;*/
+/*}*/
 
 @keyframes textAnimation {
   0% {
@@ -230,6 +243,33 @@ letter.active::before {
   left: -6px;
 }
 
+#page-project ul {
+  margin-top: 24px;
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  justify-content: space-between;
+}
+
+#page-project ul li {
+  width: 49%;
+  border: 1px solid white;
+  padding: 4px;
+  border-radius: 6px;
+  margin-bottom: 12px;
+}
+
+#page-project ul li h1 {
+  font-size: 1.2rem;
+  border-top: 1px solid white;
+  padding-top: 12px;
+}
+
+#page-project ul li p {
+  font-size: .8rem;
+  padding-top: 4px;
+}
+
 #wordInput {
   position: absolute;
   z-index: 1;
@@ -242,4 +282,33 @@ letter.active::before {
 
 #wordInput:focus {
   outline: none;
+}
+
+#astronout-guider-container img {
+  transform: rotate(15deg) translateY(100%);
+  transition-duration: 2s;
+}
+
+#astronout-guider-container.active img {
+  transform: rotate(15deg) translateY(0);
+}
+
+#astronout-guider-container p {
+  opacity: 0;
+  transition-duration: 1s;
+}
+
+#astronout-guider-container.active p {
+  opacity: 1;
+  transition-delay: 1s;
+}
+
+@media only screen and (max-width: 600px) {
+  #page-project ul li {
+    width: 100%;
+    border: 1px solid white;
+    padding: 4px;
+    border-radius: 6px;
+    margin-bottom: 12px;
+  }
 }

@@ -2,6 +2,7 @@ class SectionRegister {
   element;
   path;
   onRender = null;
+  isRender = false;
 
   constructor(element, path) {
     this.element = element;
@@ -25,8 +26,6 @@ class LayoutManager {
     document.body.style.height = `${((this.sections.length * 2) + 1) * window.innerHeight - (window.innerHeight * 30 / 100)}px`;
     this.planeElement.style.offsetPath = `path('${this.sections[0].path.getAttribute('d')}')`;
 
-    const sectionRenderStatus = this.sections.map(() => false);
-
     window.addEventListener("scroll", () => {
       let counter = 1;
 
@@ -37,15 +36,10 @@ class LayoutManager {
         }
 
         if(window.innerHeight * counter < window.scrollY && window.innerHeight * (counter + 1) > window.scrollY) {
-          if(sectionRenderStatus[counter - 1] === false) {
             if(section.onRender) {
               section.onRender();
             }
 
-            console.log("hello world");
-
-            sectionRenderStatus[counter - 1] = true;
-          }
           section.element.classList.add("active");
         } else {
           section.element.classList.remove("active");
@@ -58,6 +52,17 @@ class LayoutManager {
   }
 }
 
+const astronoutGuiderMessage = document.querySelector("#astronout-guider-container p");
+
+astronoutGuiderMessage.innerText = "Selamat datang di Galaksi Farhanisty";
+
+setTimeout(() => {
+  astronoutGuiderMessage.innerText = "Jelajahi Galaksi ini untuk mengenal Farhannivta";
+}, 2500);
+
+const astronoutGuiderContainer = document.querySelector("#astronout-guider-container");
+astronoutGuiderContainer.classList.add("active");
+
 const pageFarhannivta = document.querySelector("#page-farhannivta");
 
 const layoutManager = new LayoutManager(document.getElementById("plane"));
@@ -65,10 +70,17 @@ const layoutManager = new LayoutManager(document.getElementById("plane"));
 const challengeSection = new SectionRegister(document.querySelector("#page-challenge"), document.getElementById("planet-path-3"));
 
 challengeSection.onRender = () => {
-  console.log("hello world");
+  astronoutGuiderMessage.innerText = "Rata-rata kecepatan mengetikku dalam kosakata Bahasa Indonesia adalah 95 WPM, apakah kamu bisa mengalahkanku?";
+  astronoutGuiderContainer.classList.add("active");
 }
 
-layoutManager.registerSection(new SectionRegister(document.querySelector("#page-farhannivta"), document.getElementById("planet-path-1")));
+const farhannivtaSection = new SectionRegister(document.querySelector("#page-farhannivta"), document.getElementById("planet-path-1"));
+
+farhannivtaSection.onRender = () => {
+  astronoutGuiderContainer.classList.remove("active");
+}
+
+layoutManager.registerSection(farhannivtaSection);
 layoutManager.registerSection(new SectionRegister(document.querySelector("#page-project"), document.getElementById("planet-path-2")));
 layoutManager.registerSection(challengeSection);
 
