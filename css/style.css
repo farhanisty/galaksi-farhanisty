@@ -251,7 +251,7 @@ letter.active::before {
   left: -6px;
 }
 
-#page-project ul {
+#list-projects {
   margin-top: 24px;
   display: flex;
   flex-wrap: wrap;
@@ -259,18 +259,42 @@ letter.active::before {
   justify-content: space-between;
 }
 
-#page-project ul li {
+#page-project .project-item {
   width: 49%;
   border: 1px solid white;
-  padding: 4px;
+  padding: 4px 4px 12px 4px;
   border-radius: 6px;
   margin-bottom: 12px;
+}
+
+.tech-wrapper {
+  padding: 12px 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.tech-item {
+  background: orange;
+  color: black;
+  border-radius: 4px;
+  display: inline-block;
+  padding: 4px 12px;
 }
 
 #page-project ul li h1 {
   font-size: 1.2rem;
   border-top: 1px solid white;
   padding-top: 12px;
+}
+
+#page-project ul li a {
+  color: white;
+  text-decoration: none;
+}
+
+#page-project ul li a:hover {
+  text-decoration: underline;
 }
 
 #page-project ul li p {
@@ -333,7 +357,7 @@ letter.active::before {
     width: 350px;
   }
 
-  #page-project ul li {
+  #page-project .project-item {
     width: 100%;
     border: 1px solid white;
     padding: 4px;
