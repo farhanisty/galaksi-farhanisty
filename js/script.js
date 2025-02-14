@@ -284,11 +284,11 @@ class Text {
 }
 
 const words = [
-  "Langit", "Pintu", "Senyap", "Rumah", "Pelangi", "Gelombang", "Api", "Jalan", "Angin", "Harapan",
-  "Bunga", "Pasir", "Laut", "Bintang", "Buku", "Pena", "Hujan", "Layar", "Cermin", "Gunung",
-  "Cahaya", "Senyum", "Bayangan", "Pohon", "Kabut", "Gitar", "Angka", "Malam", "Nada", "Embun",
-  "Sungai", "Pulau", "Jendela", "Lembah", "Waktu", "Dahan", "Ombak", "Kertas", "Warna", "Suara",
-  "Awan", "Tinta", "Kota", "Perjalanan", "Kereta", "Sinar", "Langkah", "Batu", "Pelukan", "Keheningan"
+  "langit", "pintu", "senyap", "rumah", "pelangi", "gelombang", "api", "jalan", "angin", "harapan",
+  "bunga", "pasir", "laut", "bintang", "buku", "pena", "hujan", "layar", "cermin", "gunung",
+  "cahaya", "senyum", "bayangan", "pohon", "kabut", "gitar", "angka", "malam", "nada", "embun",
+  "sungai", "pulau", "jendela", "lembah", "waktu", "dahan", "ombak", "kertas", "warna", "suara",
+  "awan", "tinta", "kota", "perjalanan", "kereta", "sinar", "langkah", "batu", "pelukan", "keheningan"
 ];
 
 const text = new Text(document.querySelector("#textList"), document.querySelector("#timer"), words);
