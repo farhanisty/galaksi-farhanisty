@@ -109,7 +109,7 @@ class Word {
   index = 0;
   length;
   isDone = false;
-  isCorrect = false;
+  isCorrect = true;
   resultString = "";
   correctString = "";
 
@@ -160,6 +160,7 @@ class Word {
       if (character === childrens[this.index].innerText) {
         childrens[this.index].classList.add("correct");
       } else {
+        this.isCorrenct = false;
         childrens[this.index].classList.add("wrong");
       }
 
@@ -222,6 +223,7 @@ class Text {
   initial = false;
   timerElement;
   isDone = false;
+  rightCounter = 0;
 
   constructor(rootElement, timerElement, words) {
     this.timerElement = timerElement;
@@ -249,12 +251,17 @@ class Text {
       setTimeout(() => {
         clearInterval(timer);
         this.isDone = true;
+        this.timerElement.innerText = `${this.rightCounter * 2 / 5} WPM`;
       }, 30000)
     }
 
     if (character === ' ') {
       this.getCurrentWord().terminateWord();
       this.incrementPointer();
+
+      if(this.getCurrentWord().isCorrect) {
+        this.rightCounter += this.getCurrentWord().length;
+      }
       this.getCurrentWord().init();
     } else if (character === 'Backspace') {
       this.getCurrentWord().backspaceInput();
