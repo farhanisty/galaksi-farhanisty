@@ -144,6 +144,17 @@ nav h1 {
   stroke-dashoffset: 0;
 }
 
+.farhan-info-box {
+  width: 270px;
+  position: absolute;
+  top: 220px;
+  left: 350px;
+}
+
+.desktop-svg-info-box {
+  display: none;
+}
+
 
 /*#namaku circle {*/
 /*  stroke-dasharray: 100;*/
@@ -335,7 +346,22 @@ letter.active::before {
   transition-delay: 1s;
 }
 
+.farhan-image {
+  position: absolute;
+  top: 200px;
+}
+
 @media only screen and (max-width: 600px) {
+  .farhan-image {
+    top: 340px;
+  }
+
+  .farhan-info-box {
+    display: block;
+    left: 45px;
+    top: 90px;
+  }
+
   nav h1 {
     text-align: center;
     font-size: 1.2rem;
