@@ -82,7 +82,11 @@ const layoutManager = new LayoutManager(document.getElementById("plane"));
 const challengeSection = new SectionRegister(document.querySelector("#page-challenge"), document.getElementById("planet-path-3"), document.getElementById("mobile-planet-path-3"));
 
 challengeSection.onRender = () => {
-  astronoutGuiderMessage.innerText = "Rata-rata kecepatan mengetikku dalam kosakata Bahasa Indonesia adalah 95 WPM, apakah kamu bisa mengalahkanku?";
+  if(window.innerWidth > 600) {
+    astronoutGuiderMessage.innerText = "Rata-rata kecepatan mengetikku dalam kosakata Bahasa Indonesia adalah 95 WPM, apakah kamu bisa mengalahkanku?";
+  } else {
+    astronoutGuiderMessage.innerText = "Roketmu terlalu kecil. Gunakan roket yang lebih besar untuk memulai tantangan!";
+  }
   astronoutGuiderContainer.classList.add("active");
 }
 

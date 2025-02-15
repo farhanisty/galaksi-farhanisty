@@ -351,9 +351,38 @@ letter.active::before {
   top: 200px;
 }
 
+.challenge-layout {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh
+}
+
+.challenge-layout-mobile {
+  display: none;
+}
+
 @media only screen and (max-width: 600px) {
   .farhan-image {
     top: 340px;
+  }
+
+  .challenge-layout {
+    display: none;
+  }
+
+  .challenge-layout-mobile {
+    display: flex;
+    height: 70vh;
+    justify-content: center;
+    flex-direction: column;
+    gap: 18px;
+    align-items: center;
+  }
+
+  .challenge-layout {
+    display: none;
   }
 
   .farhan-info-box {
